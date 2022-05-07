@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaperPlane : MonoBehaviour
 {
     public float jumpPower;
+    public float rotateSpeed;
     Rigidbody rigid;
 
     void Awake()
@@ -14,7 +15,7 @@ public class PaperPlane : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
         }
@@ -26,7 +27,7 @@ public class PaperPlane : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        rigid.AddForce(new Vector3(h, 0, v), ForceMode.Impulse);
-        rigid.AddTorque(new Vector3(h, 0, v), ForceMode.Impulse);
+        rigid.AddForce(new Vector3(0, 0, v), ForceMode.Impulse);
+        transform.Rotate(new Vector3(0, h, 0) * rotateSpeed * Time.deltaTime, Space.World);
     }
 }
