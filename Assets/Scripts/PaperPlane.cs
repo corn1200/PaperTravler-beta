@@ -19,7 +19,6 @@ public class PaperPlane : MonoBehaviour
         {
             rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
         }
-
     }
 
     private void FixedUpdate()
@@ -27,7 +26,7 @@ public class PaperPlane : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        rigid.AddForce(new Vector3(0, 0, v), ForceMode.Impulse);
-        transform.Rotate(new Vector3(0, h, 0) * rotateSpeed * Time.deltaTime, Space.World);
+        rigid.AddRelativeForce(new Vector3(0, 0, v), ForceMode.Impulse);
+        rigid.AddRelativeTorque(new Vector3(0, h, 0) * rotateSpeed, ForceMode.Impulse);
     }
 }
