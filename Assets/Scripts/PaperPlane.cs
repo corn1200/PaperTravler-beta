@@ -5,7 +5,8 @@ using UnityEngine;
 public class PaperPlane : MonoBehaviour
 {
     public float jumpPower;
-    public float rotateSpeed;
+    public float maxVelocitySpeed;
+    public float maxRotateSpeed;
     Rigidbody rigid;
 
     void Awake()
@@ -27,6 +28,8 @@ public class PaperPlane : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
 
         rigid.AddRelativeForce(new Vector3(0, 0, v), ForceMode.Impulse);
-        rigid.AddRelativeTorque(new Vector3(0, h, 0) * rotateSpeed, ForceMode.Impulse);
+        rigid.AddRelativeTorque(new Vector3(0, h, 0) * maxRotateSpeed, ForceMode.Impulse);
+
+        rigid.velocity = Vector3.ClampMagnitude(rigid.velocity, maxVelocitySpeed);
     }
 }
