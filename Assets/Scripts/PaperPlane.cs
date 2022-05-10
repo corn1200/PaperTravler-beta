@@ -7,6 +7,10 @@ public class PaperPlane : MonoBehaviour
     public float jumpPower;
     public float maxVelocitySpeed;
     public float maxRotateSpeed;
+    public float maxRotateX = 20;
+    public float minRotateX = 10;
+    public float maxRotateY = 40;
+    public float minRotateY = -40;
     Rigidbody rigid;
 
     void Awake()
@@ -31,5 +35,18 @@ public class PaperPlane : MonoBehaviour
         rigid.AddRelativeTorque(new Vector3(0, h, 0) * maxRotateSpeed, ForceMode.Impulse);
 
         rigid.velocity = Vector3.ClampMagnitude(rigid.velocity, maxVelocitySpeed);
+
+        float rotX = transform.rotation.eulerAngles.x + (maxRotateSpeed * Time.deltaTime) * (-h);
+
+        float rotY = transform.rotation.eulerAngles.y + (maxRotateSpeed * Time.deltaTime) * h;
+
+
+        if (rotX > maxRotateX) { rotX = maxRotateX; }
+
+        if (rotX < minRotateX) { rotX = minRotateX; }
+
+        if (rotY > maxRotateY) { rotY = maxRotateY; }
+
+        if (rotY < minRotateY) { rotY = minRotateY; }
     }
 }
